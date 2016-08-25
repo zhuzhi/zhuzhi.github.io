@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="OHLC,涨停,跌停,分类," />
 
 
 
@@ -84,15 +84,205 @@
 
 
 
-<meta name="description" content="三省吾身">
-<meta property="og:type" content="website">
-<meta property="og:title" content="zhuzhi's notes">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="尾盘分类
+
+
+open
+high
+low
+close
+type_num
+comment
+
+
+
+
+90%
+90%
+90%
+90%
+-3
+一字板跌停
+
+
+
+N+
+90%
+90%
+-2
+尾盘跌停
+
+
+
+N+
+90%
+N
+-1
+尾盘非涨跌停,有跌停
+
+
+N
+N
+N
+N
+0
+普通情形
+
+
+
+110%
+N-
+N
+1
+尾盘非涨跌停，有涨停
+
+
+
+110%
+N-
+110%
+2
+尾盘涨停
+
+
+110%
+110%
+1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OHLC涨跌停检查">
+<meta property="og:url" content="http://yoursite.com/2016/08/25/2016-08-25-OHLC涨跌停检查/index.html">
 <meta property="og:site_name" content="zhuzhi's notes">
-<meta property="og:description" content="三省吾身">
+<meta property="og:description" content="尾盘分类
+
+
+open
+high
+low
+close
+type_num
+comment
+
+
+
+
+90%
+90%
+90%
+90%
+-3
+一字板跌停
+
+
+
+N+
+90%
+90%
+-2
+尾盘跌停
+
+
+
+N+
+90%
+N
+-1
+尾盘非涨跌停,有跌停
+
+
+N
+N
+N
+N
+0
+普通情形
+
+
+
+110%
+N-
+N
+1
+尾盘非涨跌停，有涨停
+
+
+
+110%
+N-
+110%
+2
+尾盘涨停
+
+
+110%
+110%
+1">
+<meta property="og:updated_time" content="2016-08-25T07:22:49.657Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="zhuzhi's notes">
-<meta name="twitter:description" content="三省吾身">
+<meta name="twitter:title" content="OHLC涨跌停检查">
+<meta name="twitter:description" content="尾盘分类
+
+
+open
+high
+low
+close
+type_num
+comment
+
+
+
+
+90%
+90%
+90%
+90%
+-3
+一字板跌停
+
+
+
+N+
+90%
+90%
+-2
+尾盘跌停
+
+
+
+N+
+90%
+N
+-1
+尾盘非涨跌停,有跌停
+
+
+N
+N
+N
+N
+0
+普通情形
+
+
+
+110%
+N-
+N
+1
+尾盘非涨跌停，有涨停
+
+
+
+110%
+N-
+110%
+2
+尾盘涨停
+
+
+110%
+110%
+1">
 
 
 
@@ -113,9 +303,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/08/25/2016-08-25-OHLC涨跌停检查/"/>
 
-  <title> zhuzhi's notes </title>
+  <title> OHLC涨跌停检查 | zhuzhi's notes </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -136,9 +326,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -235,9 +423,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -257,10 +445,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/08/25/2016-08-25-OHLC涨跌停检查/" itemprop="url">
-                  OHLC涨跌停检查
-                </a>
+                OHLC涨跌停检查
               
             
           </h1>
@@ -331,9 +516,7 @@
       
 
       
-        
-          
-            <h3 id="尾盘分类"><a href="#尾盘分类" class="headerlink" title="尾盘分类"></a>尾盘分类</h3><table>
+        <h3 id="尾盘分类"><a href="#尾盘分类" class="headerlink" title="尾盘分类"></a>尾盘分类</h3><table>
 <thead>
 <tr>
 <th style="text-align:right">open</th>
@@ -522,217 +705,65 @@
 <p>建议用数字而非字符串来作为编码，方便节约。</p>
 <table><br>  <tr><br>    <th>(O, H, L, C)</th><br>    <th>编号</th><br>    <th>注释</th><br>    <th>评价</th><br>  </tr><br>  <tr><br>    <td>(<font color="green">D</font>, <font color="green">D</font>, <font color="green">D</font>, <font color="green">D</font>)</td><br>    <td>933</td><br>    <td>一字板跌停</td><br>    <td></td><br>  </tr><br>  <tr><br>    <td>(<font color="green">D</font>, N, <font color="green">D</font>, <font color="green">D</font>)</td><br>    <td>333</td><br>    <td>开收盘跌停，中间有开板</td><br>    <td></td><br>  </tr><br>  <tr><br>    <td>(<font color="green">D</font>, <font color="red">U</font>, <font color="green">D</font>, <font color="green">D</font>)</td><br>    <td>533</td><br>    <td>开收盘跌停，中间有涨停</td><br>    <td></td><br>  </tr><br>  <tr><br>    <td>(N, N, <font color="green">D</font>, <font color="green">D</font>)</td><br>    <td>303</td><br>    <td>普通跌停收盘</td><br>    <td></td><br>  </tr><br>  <tr><br>    <td>(N, <font color="red">U</font>, <font color="green">D</font>, <font color="green">D</font>)</td><br>    <td>503</td><br>    <td>冲涨停又回落跌停</td><br>    <td></td><br>  </tr><br>  <tr><br>    <td>(<font color="green">D</font>, N, <font color="green">D</font>, N)</td><br>    <td>330</td><br>    <td>跌停开盘，破板收盘</td><br>    <td></td><br>  </tr><br>  <tr><br>    <td>(<font color="green">D</font>, <font color="red">U</font>, <font color="green">D</font>, N)</td><br>    <td>530</td><br>    <td>跌停开盘冲涨停后又回落</td><br>    <td></td><br>  </tr><br>  <tr><br>    <td>(N, N, <font color="green">D</font>, N)</td><br>    <td>300</td><br>    <td>盘中一度跌停，尾盘收回</td><br>    <td></td><br>  </tr><br>  <tr><br>    <td>(N, <font color="red">U</font>, <font color="green">D</font>, N)</td><br>    <td>500</td><br>    <td>盘中巨振，最终普通收盘</td><br>    <td></td><br>  </tr><br>  <tr><br>    <td>(<font color="red">U</font>, <font color="red">U</font>, <font color="green">D</font>, <font color="green">D</font>)</td><br>    <td>523</td><br>    <td>涨停到跌停</td><br>    <td></td><br>  </tr><br>  <tr><br>    <td>(<font color="red">U</font>, <font color="red">U</font>, <font color="green">D</font>, N)</td><br>    <td>520</td><br>    <td>涨停开盘，一度跌停，尾盘收回</td><br>    <td></td><br>  </tr><br>  <tr><br>    <td>(N, N, N, N)</td><br>    <td>000</td><br>    <td>最为普通情形</td><br>    <td></td><br>  </tr><br>  <tr><br>    <td>(<font color="green">D</font>, <font color="red">U</font>, <font color="green">D</font>, <font color="red">U</font>)</td><br>    <td>532</td><br>    <td>跌停到涨停</td><br>    <td></td><br>  </tr><br>  <tr><br>    <td>(N, <font color="red">U</font>, <font color="green">D</font>, <font color="red">U</font>)</td><br>    <td>502</td><br>    <td>盘中巨振，最终涨停收盘</td><br>    <td></td><br>  </tr><br>  <tr><br>    <td>(N, <font color="red">U</font>, N, N)</td><br>    <td>200</td><br>    <td>盘中一度涨停，尾盘回落</td><br>    <td></td><br>  </tr><br>  <tr><br>    <td>(<font color="red">U</font>, <font color="red">U</font>, N, N)</td><br>    <td>220</td><br>    <td>涨停开盘，破板收盘</td><br>    <td></td><br>  </tr><br>  <tr><br>    <td>(N, <font color="red">U</font>, N, <font color="red">U</font>)</td><br>    <td>202</td><br>    <td>普通涨停收盘</td><br>    <td></td><br>  </tr><br>  <tr><br>    <td>(<font color="red">U</font>, <font color="red">U</font>, N, <font color="red">U</font>)</td><br>    <td>222</td><br>    <td>开收盘涨停，中间有开板</td><br>    <td></td><br>  </tr><br>  <tr><br>    <td>(<font color="red">U</font>, <font color="red">U</font>, <font color="green">D</font>, <font color="red">U</font>)</td><br>    <td>522</td><br>    <td>开收盘涨停，中间有跌停</td><br>    <td></td><br>  </tr><br>  <tr><br>    <td>(<font color="red">U</font>, <font color="red">U</font>, <font color="red">U</font>, <font color="red">U</font>)</td><br>    <td>422</td><br>    <td>一字板涨停</td><br>    <td></td><br>  </tr><br></table>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/15/2016-08-24-股票除权的情形说明/" itemprop="url">
-                  股票除权的情形说明
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-15T22:00:04+08:00" content="2016-08-15">
-              2016-08-15
-            </time>
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/stock/" itemprop="url" rel="index">
-                    <span itemprop="name">stock</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/stock/quant/" itemprop="url" rel="index">
-                    <span itemprop="name">quant</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
+            <a href="/tags/OHLC/" rel="tag">#OHLC</a>
           
-
+            <a href="/tags/涨停/" rel="tag">#涨停</a>
           
-            
+            <a href="/tags/跌停/" rel="tag">#跌停</a>
           
-
-          
-
-          
-          
-
+            <a href="/tags/分类/" rel="tag">#分类</a>
           
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p><a href="http://dy.gold678.com/P/72609509" target="_blank" rel="external">深度聊聊股息和红利，分红和送股，送股、转增股和配股之间的猫腻</a></p>
-<h3 id="股息和红利"><a href="#股息和红利" class="headerlink" title="股息和红利"></a>股息和红利</h3><h4 id="股息和红利的简单说明"><a href="#股息和红利的简单说明" class="headerlink" title="股息和红利的简单说明"></a>股息和红利的简单说明</h4><ul>
-<li>股息是指公司根据股东出资比例或持有股份，按照事先确定的固定比例向股东分配的公司盈余；</li>
-<li>红利则是在上市公司分派股息之后按照持股比例向股东分配的剩余利润。</li>
-</ul>
-<p>简而言之，股息一般是指分配给优先股股东的股票收益；红利是在股息分配完后，从公司剩余利润中分配给普通股股东的。<br>红利是公司在年终（中）结算后，将盈利的一部分作为股息按股额分配给普通股股东，优先股是不能享受红利的。红利主要有两种分配形式：</p>
-<ol>
-<li>现金分红，即以现金支付红利，又称为分红；</li>
-<li>股票分红，即以公司的股票作为红利，又称之为送红股或送股。</li>
-</ol>
-<h3 id="分红和送股"><a href="#分红和送股" class="headerlink" title="分红和送股"></a>分红和送股</h3><h4 id="分配红利的条件"><a href="#分配红利的条件" class="headerlink" title="分配红利的条件"></a>分配红利的条件</h4><p>首先，公司想要给股东分配红利必须满足以下条件：</p>
-<ol>
-<li>公司当年有利润；</li>
-<li>已经弥补和结转递延亏损（把以前年度亏损补上）；</li>
-<li>已经提取10%的法定公积金；</li>
-<li>支付股息。</li>
-</ol>
-<p>不满足以上条件的不予分配红利，当然除此之外还有一些非常复杂的规定。</p>
-<h4 id="公司分配红利的步骤"><a href="#公司分配红利的步骤" class="headerlink" title="公司分配红利的步骤"></a>公司分配红利的步骤</h4><p>第一步：董事会指定红利分配预案，确定分红数量和分红方式，安排召开股东大会或临时股东大会时间、地点、表决方式等，并向社会公开。<br>第二步：董事会指定的红利分配预案必须经过股东大会或者临时股东大会讨论表决，套论通过，获得批准，讨论不通过，重新修改；<br>第三步：公司发布公告，公布红利分配方案及实施时间（按规定，股东大会讨论分红预案时，该公司股票要停止交易一天；公司公布分红方案时，该公司股票要停止交易半天）。<br>第四步：具体如何分配红利？举个例子，某公司发布公告，每10股派现金人民币5原就属于分红，每10股送红股就属于送股。下面就有几个日子需要明确记住：<strong>股权登记日（T日）</strong>（由于股票具有流动性，因子需要设置一个股权登记日，进行股东股权登记，确定本次发放红利的股东）、<strong>除权除息日\现金红利发放日（T+1日）</strong>（分红对应的是除息，送股对应于除权，红利发放日就是把分红发到你手里的日子），<strong>新增无限售条件流动股份上市日（T+2日）</strong>（送股之后新增的那部分股本可以流通的日期）</p>
-<h4 id="以万科为例子"><a href="#以万科为例子" class="headerlink" title="以万科为例子"></a>以万科为例子</h4><p>万科2015年度A股派息方案为：以分红派息股权登记日股份数为基数，向全体A股股东每10股派现金人民币7.2元（含税）。<br>转让股票时持股 1 个月（含 1 个月）以内的股份，每 10 股补缴税款 1.44 元；持股 1 个月以上至 1 年（含 1 年）的股份，每 10 股需补缴税款 0.72 元；持股超过 1 年的股份，不需补缴税款。<br>即2015年9月7日晚，财政部、国家税务总局、证监会三部委联合发文，自2015年9月8日起，对上市公司股息红利所得差别化个人所得税政策进行了适当调整，对持股1年以上的投资者加大了税收优惠力度，即持股超过1年的，其取得的股息红利所得暂免征收个人所得税。同时，对持股1个月以内和1个月至1年的，原有政策保持不变，实际税负仍为20%和10%。（先进先出原则）<br>A股股权登记日为 2016年7月28日（T日），除息日为2016年7月29日（T+1日）。<br>万科A在7月28日股价为 17.92，则在7月29日开盘集合竞价的价位是从 17.2元开始的。注：在通达信客户端中，K线图是按照17.92来计算涨跌幅，但是日内走势图是按照17.2来计算涨跌幅。</p>
-<h4 id="分红和送股到底是利好还是利空？"><a href="#分红和送股到底是利好还是利空？" class="headerlink" title="分红和送股到底是利好还是利空？"></a>分红和送股到底是利好还是利空？</h4><p>利好的逻辑：</p>
-<blockquote>
-<p>公司能发红利，说明公司运营良好。</p>
-</blockquote>
-<p>利空逻辑：多种原因，有部分公司利用规则漏洞等，但是这里要说一下最重要的一个逻辑：</p>
-<blockquote>
-<p>分红和送股都是要想国家缴纳个人所得税。具体税收比例前面已经叙述<br>待个人转让股票时，中登上海分公司根据其持股期限计算应纳税额，由证券公司等股份托管机构从个人资金账户中扣收并划付中登上海分公司，中登上海分公司应于次月5个工作日内划付公司，公司在收到税款当月的法定申报期内向主管税务机关申报缴纳。</p>
-</blockquote>
-<h3 id="送股、转增股、配股"><a href="#送股、转增股、配股" class="headerlink" title="送股、转增股、配股"></a>送股、转增股、配股</h3><h4 id="转增股和送股"><a href="#转增股和送股" class="headerlink" title="转增股和送股"></a>转增股和送股</h4><p>我们A股独有的一个概念，而且炒作起来没完没了，涨幅简直吓死人，他就是<strong>高送转概念</strong>，这里面涉及到两种不同的方式：送股和转增股，送股已经说的比较清楚了，下面讲讲转增股。<br><strong>转增股本是指用公司的资本公积金按权益折成股份转增。</strong><br>送股和转增股有相同点也有不同点：</p>
-<ul>
-<li>相同点：<blockquote>
-<ul>
-<li>客观结果相似。送股是上市公司将本年的利润留在公司里，发放股票作为红利，从而将利润作为股本。送股后，公司的资产、负债、股东权益结构的总额结构并没有发生变化，但总股本增大了，同时每股净资产降低了。而转增股本则是指公司将资本公积转化为股本，转增股本并没有改变股东的权益，但却增加了股本的规模。</li>
-<li>均有一下程序：股权登记日，除权（除息）日，送股（转增股）上市日。</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<ul>
-<li>不同点：<blockquote>
-<ul>
-<li>转增股是指用公司的资本公积金按权益折成股份转增，而送股是用公司的未分配利润以股利的形式送股；</li>
-<li>送股来自公司的年度税后利润，只有在公司有盈余的情况下，才能向股东送红股，而转增股本却来自于资本公积，他可以不受公司本年度可分配利润的多少及时间限制。</li>
-<li>资本公积转增股不属于股息、红利性质的分配，对个人取得的转增股本数额，不属于个人所得，不征收个人所得税。</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<h4 id="配股"><a href="#配股" class="headerlink" title="配股"></a>配股</h4><p>配股，这个和送股，转增股名称相似，但内容完全不一样，配股是股票发行的一种形式，它赋予企业现有股东对新发股票的优先取舍权。配股的最大特点是发行新股的价格是按照发行公告发布时的股票市价作一定的折价处理来确定的，一般情况为股票市场价格折扣10%到25%.<br>同样配股也有一个股权登记日，如果公司本次配股折价较高，不想参与本次配股，则需要在股权登记日前卖出。一般的配股缴款起止日为5个交易日。就目前我遇到的几次配股，其折价均较高，基本上都会亏钱。下面举个例子来介绍折价和配股之后的除权价格计算：<br>假设某公司目前股票的市场价格为每股3元，公告以3：1(每3股增加1股)的比例增股发行，新股发行的价格为每股2元。</p>
-<ul>
-<li>3股老股，价值每股3元，共9元；</li>
-<li>1股新股，价值每股２元，共2元；</li>
-<li>4股的理论价值11元；</li>
-</ul>
-<p>理论上的除权价格：２.７５元(１１元÷4)。<br>如果你持有３００股，配股之前市值为３００＊２＝９００元；<br>假如你认为折价太高，不参与配股，也没有在股权登记日前卖出，那么配股之后，你的市值为３００＊２.７５＝８２５元，亏损７５元，亏损幅度为－８.３３％；<br>假如参与本次配股，新增资金２００元参与配股，则你的市值为４００＊２.７５＝１１００元，而你的累计两次投入资金为９００＋２００＝１１００元。</p>
-<p>我自己举一个实际的例子<br>600743，华远地产，配股。<br>股权登记日: 2016-07-12<br>配股比例： 10配3<br>配股价格： 3.36<br>2016年7月12日收盘价: 4.70</p>
-<p>若7月12日持有1000股，市值 4700元。<br>配股 300， 申购需花费 300*3.36=1008元。<br>此时，共计有资产 5708元，1300股份。<br>理论上 7月29日开盘集合竞价的基准价格为 5708/1300 = 4.39元。<br>这个价格在通达信的日内走势图中已经得到验证，7月29日，收盘价格4.38，跌幅为 (4.38-4.39)/4.39=-0.23%。<br>折价率为 (4.39-3.36)/4.39=23.5%</p>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/15/2016-08-24-股票除权的情形说明/" rel="next" title="股票除权的情形说明">
+                <i class="fa fa-chevron-left"></i> 股票除权的情形说明
+              </a>
+            
+          </div>
 
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -740,6 +771,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -759,8 +794,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -821,6 +865,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#尾盘分类"><span class="nav-number">1.</span> <span class="nav-text">尾盘分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开盘分类"><span class="nav-number">2.</span> <span class="nav-text">开盘分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开盘尾盘交叉分类"><span class="nav-number">3.</span> <span class="nav-text">开盘尾盘交叉分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#分类表格"><span class="nav-number">3.1.</span> <span class="nav-text">分类表格</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#交叉分类编号表"><span class="nav-number">3.2.</span> <span class="nav-text">交叉分类编号表</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -917,6 +972,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
