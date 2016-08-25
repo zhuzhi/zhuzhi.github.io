@@ -1,0 +1,939 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="backtest,position,balance,order,deal,books," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="每个策略回测都需要评价，由于各个策略想法差异非常大，不可能对每个策略写一个评价函数。针对这个问题，我个人的解决方法是回到实际交易当中去看。
+由于我在某个证券公司做过数据分析项目，对于证券公司的CRM系统有一定的熟悉，证券公司将客户的交易数据写成了几个表格保存在 Oracle 数据库当中。
+我想将每个策略看做一个用户，自己作为一个“用户管理员”，需要对每个用户建立数据表格。
+证券公司的客户交易数据表">
+<meta property="og:type" content="article">
+<meta property="og:title" content="backtest books design v1.0.0">
+<meta property="og:url" content="http://yoursite.com/2016/08/25/2016-08-25-backtest_books/index.html">
+<meta property="og:site_name" content="zhuzhi's notes">
+<meta property="og:description" content="每个策略回测都需要评价，由于各个策略想法差异非常大，不可能对每个策略写一个评价函数。针对这个问题，我个人的解决方法是回到实际交易当中去看。
+由于我在某个证券公司做过数据分析项目，对于证券公司的CRM系统有一定的熟悉，证券公司将客户的交易数据写成了几个表格保存在 Oracle 数据库当中。
+我想将每个策略看做一个用户，自己作为一个“用户管理员”，需要对每个用户建立数据表格。
+证券公司的客户交易数据表">
+<meta property="og:updated_time" content="2016-08-25T13:46:02.197Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="backtest books design v1.0.0">
+<meta name="twitter:description" content="每个策略回测都需要评价，由于各个策略想法差异非常大，不可能对每个策略写一个评价函数。针对这个问题，我个人的解决方法是回到实际交易当中去看。
+由于我在某个证券公司做过数据分析项目，对于证券公司的CRM系统有一定的熟悉，证券公司将客户的交易数据写成了几个表格保存在 Oracle 数据库当中。
+我想将每个策略看做一个用户，自己作为一个“用户管理员”，需要对每个用户建立数据表格。
+证券公司的客户交易数据表">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/08/25/2016-08-25-backtest_books/"/>
+
+  <title> backtest books design v1.0.0 | zhuzhi's notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">zhuzhi's notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                backtest books design v1.0.0
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-25T19:49:31+08:00" content="2016-08-25">
+              2016-08-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/stock/" itemprop="url" rel="index">
+                    <span itemprop="name">stock</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/stock/quant/" itemprop="url" rel="index">
+                    <span itemprop="name">quant</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/stock/quant/backtest/" itemprop="url" rel="index">
+                    <span itemprop="name">backtest</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>每个策略回测都需要评价，由于各个策略想法差异非常大，不可能对每个策略写一个评价函数。针对这个问题，我个人的解决方法是回到实际交易当中去看。</p>
+<p>由于我在某个证券公司做过数据分析项目，对于证券公司的CRM系统有一定的熟悉，证券公司将客户的交易数据写成了几个表格保存在 Oracle 数据库当中。</p>
+<p>我想将每个策略看做一个用户，自己作为一个“用户管理员”，需要对每个用户建立数据表格。</p>
+<h3 id="证券公司的客户交易数据表"><a href="#证券公司的客户交易数据表" class="headerlink" title="证券公司的客户交易数据表"></a>证券公司的客户交易数据表</h3><p>回忆一下，有下列几个基础表格：</p>
+<ul>
+<li>日综合状况表</li>
+<li>日成交表</li>
+<li>日委托表</li>
+<li>日持仓表</li>
+</ul>
+<p>日持仓表是证券公司升级过后包含的新表：）我离开的时候数据库中还没有这个表。</p>
+<p>如果每个策略都生成这四个表，然后建立一个对这四个表的综合分析框架，那么以后回测的评价就变的简洁愉快了。</p>
+<h3 id="回测生成交易数据表"><a href="#回测生成交易数据表" class="headerlink" title="回测生成交易数据表"></a>回测生成交易数据表</h3><p>证券公司的客户交易数据表非常复杂，对于回测评价而言，很多东西用不上。或者说我这篇 v1.0.0 暂时用不到。</p>
+<p>这里我写一下四个表的数据格式。<br>这里各个数据表格的字段名都是汉语拼音的首字母缩写，看上去有点 low 但是意外的好用呢。尤其在回测的时候，很多内部变量我都用英文，这样不容易混淆。</p>
+<h4 id="日综合状况表-T-RZHZK-t-rzhzk"><a href="#日综合状况表-T-RZHZK-t-rzhzk" class="headerlink" title="日综合状况表 T_RZHZK / t_rzhzk"></a>日综合状况表 T_RZHZK / t_rzhzk</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">字段</th>
+<th style="text-align:left">格式</th>
+<th style="text-align:left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">RQ</td>
+<td style="text-align:left">date/character</td>
+<td style="text-align:left">MySQL/R 格式, 下同</td>
+</tr>
+<tr>
+<td style="text-align:left">ZZC</td>
+<td style="text-align:left">double/numeric</td>
+<td style="text-align:left">总资产</td>
+</tr>
+<tr>
+<td style="text-align:left">ZSZ</td>
+<td style="text-align:left">double/numeric</td>
+<td style="text-align:left">总市值</td>
+</tr>
+<tr>
+<td style="text-align:left">XJ</td>
+<td style="text-align:left">double/numeric</td>
+<td style="text-align:left">现金</td>
+</tr>
+</tbody>
+</table>
+<p>日综合状况表描述了策略每天产生的总结果，基本上一个策略回测结果的好坏可以直接从这张表来得到。</p>
+<p>这张表是每天（或交易日）都有一行数据。</p>
+<h4 id="日委托表-T-RWT-t-rwt"><a href="#日委托表-T-RWT-t-rwt" class="headerlink" title="日委托表 T_RWT / t_rwt"></a>日委托表 T_RWT / t_rwt</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">字段</th>
+<th style="text-align:left">格式</th>
+<th style="text-align:left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">RQ</td>
+<td style="text-align:left">date/character</td>
+<td style="text-align:left">MySQL/R 格式, 下同</td>
+</tr>
+<tr>
+<td style="text-align:left">ZQDM</td>
+<td style="text-align:left">chat(6)/character</td>
+<td style="text-align:left">证券代码</td>
+</tr>
+<tr>
+<td style="text-align:left">WTJG</td>
+<td style="text-align:left">double/numeric</td>
+<td style="text-align:left">委托价格</td>
+</tr>
+<tr>
+<td style="text-align:left">WTFQJG</td>
+<td style="text-align:left">double/numeric</td>
+<td style="text-align:left">委托复权价格</td>
+</tr>
+<tr>
+<td style="text-align:left">WTSL</td>
+<td style="text-align:left">double/numeric</td>
+<td style="text-align:left">委托数量</td>
+</tr>
+<tr>
+<td style="text-align:left">WTJE</td>
+<td style="text-align:left">double/numeric</td>
+<td style="text-align:left">委托金额</td>
+</tr>
+<tr>
+<td style="text-align:left">WTFQJE</td>
+<td style="text-align:left">double/numeric</td>
+<td style="text-align:left">委托复权金额</td>
+</tr>
+<tr>
+<td style="text-align:left">MMFX</td>
+<td style="text-align:left">varchar(6)/character</td>
+<td style="text-align:left">买卖方向, 买 or 卖</td>
+</tr>
+<tr>
+<td style="text-align:left">CJBZ</td>
+<td style="text-align:left">integer/integer</td>
+<td style="text-align:left">成交标志， 1 成交； 0 未成交</td>
+</tr>
+</tbody>
+</table>
+<p>这张表看上去字段十分多，简要说明下。</p>
+<ol>
+<li>委托分为买和卖，由委托方向决定。委托根据当时成交情况，分为是否成交，由成交标志表示（将来也许会定义部分成交）。</li>
+<li>买的时候，比较简单，有用的字段为 WTJG, WTSL, WTJE。</li>
+<li>卖的时候，就繁一点了，一般情况下，由 WTJG, WTSL, WTJE 就可以决定了，但是实际当中考虑到复权的问题，很可能需要 WTJG, WTFQJG, WTFQJE，复权方式为从购买的当天定点向后复权。</li>
+<li>复权问题目前考虑的并不完善，只是将就可以一用，主要用到了复权因子，考虑定点向前复权和定点向后复权。</li>
+</ol>
+<h4 id="日成交表-T-RCJ-t-rcj"><a href="#日成交表-T-RCJ-t-rcj" class="headerlink" title="日成交表 T_RCJ / t_rcj"></a>日成交表 T_RCJ / t_rcj</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">字段</th>
+<th style="text-align:left">格式</th>
+<th style="text-align:left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">RQ</td>
+<td style="text-align:left">date/character</td>
+<td style="text-align:left">数据库/R 格式, 下同</td>
+</tr>
+<tr>
+<td style="text-align:left">ZQDM</td>
+<td style="text-align:left">chat(6)/character</td>
+<td style="text-align:left">证券代码</td>
+</tr>
+<tr>
+<td style="text-align:left">CJJG</td>
+<td style="text-align:left">double/numeric</td>
+<td style="text-align:left">成交价格</td>
+</tr>
+<tr>
+<td style="text-align:left">CJFQJG</td>
+<td style="text-align:left">double/numeric</td>
+<td style="text-align:left">成交复权价格</td>
+</tr>
+<tr>
+<td style="text-align:left">CJSL</td>
+<td style="text-align:left">double/numeric</td>
+<td style="text-align:left">成交数量</td>
+</tr>
+<tr>
+<td style="text-align:left">CJJE</td>
+<td style="text-align:left">double/numeric</td>
+<td style="text-align:left">成交金额</td>
+</tr>
+<tr>
+<td style="text-align:left">CJFQJE</td>
+<td style="text-align:left">double/numeric</td>
+<td style="text-align:left">成交复权金额</td>
+</tr>
+<tr>
+<td style="text-align:left">YJ</td>
+<td style="text-align:left">double/numeric</td>
+<td style="text-align:left">佣金</td>
+</tr>
+<tr>
+<td style="text-align:left">YHS</td>
+<td style="text-align:left">double/numeric</td>
+<td style="text-align:left">印花税</td>
+</tr>
+<tr>
+<td style="text-align:left">MMFX</td>
+<td style="text-align:left">varchar(6)/character</td>
+<td style="text-align:left">买卖方向, 买 or 卖</td>
+</tr>
+</tbody>
+</table>
+<p>这里成交情况，我设置了佣金和印花税，当然这些税率我不会按照政策改变而真是改变的，这样需要我去详细搜集历年印花税的改变情况，我这里只需要设置一个大概的（较为保守的）值。</p>
+<p>复权问题和前面一致，这里其实有个问题，复权的愿意可能是股息，分红，这没有问题，但也有可能是送红股，配股，这就很有问题了，其实委托数量就变了，但目前v1.0.0版本任然停留在复权因子上。</p>
+<p>目前我已经部署了配股的采集，股息，送红股，增股这些数据的采集来源已经确定，但是并不像部署到自动采集，因为数据量可能有些多，再想想吧。</p>
+<p>当这些数据完成后，可能会有一个更加贴近真是情况的四表，但不会完全还原真正的现实。</p>
+<h4 id="日持仓表-T-RCC-t-rcc"><a href="#日持仓表-T-RCC-t-rcc" class="headerlink" title="日持仓表 T_RCC / t_rcc"></a>日持仓表 T_RCC / t_rcc</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">字段</th>
+<th style="text-align:left">格式</th>
+<th style="text-align:left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">RQ</td>
+<td style="text-align:left">date/character</td>
+<td style="text-align:left">数据库/R 格式, 下同</td>
+</tr>
+<tr>
+<td style="text-align:left">ZQDM</td>
+<td style="text-align:left">chat(6)/character</td>
+<td style="text-align:left">证券代码</td>
+</tr>
+<tr>
+<td style="text-align:left">CJJG</td>
+<td style="text-align:left">double/numeric</td>
+<td style="text-align:left">成交价格</td>
+</tr>
+<tr>
+<td style="text-align:left">BBJG</td>
+<td style="text-align:left">double/numeric</td>
+<td style="text-align:left">保本价格，摊上购买时单向佣金</td>
+</tr>
+<tr>
+<td style="text-align:left">ZXJG</td>
+<td style="text-align:left">double/numeric</td>
+<td style="text-align:left">最新价格（停牌为最近一个交易日收盘价）</td>
+</tr>
+<tr>
+<td style="text-align:left">ZXFQJG</td>
+<td style="text-align:left">double/numeric</td>
+<td style="text-align:left">最新复权价格（停牌为最近一个交易日复权收盘价）</td>
+</tr>
+<tr>
+<td style="text-align:left">CCSL</td>
+<td style="text-align:left">double/numeric</td>
+<td style="text-align:left">持仓数量</td>
+</tr>
+<tr>
+<td style="text-align:left">CCJE</td>
+<td style="text-align:left">double/numeric</td>
+<td style="text-align:left">持仓金额</td>
+</tr>
+<tr>
+<td style="text-align:left">CCFQJE</td>
+<td style="text-align:left">double/numeric</td>
+<td style="text-align:left">持仓复权金额</td>
+</tr>
+<tr>
+<td style="text-align:left">CCLR</td>
+<td style="text-align:left">double/numeric</td>
+<td style="text-align:left">持仓利润</td>
+</tr>
+</tbody>
+</table>
+<p>这里有一些细节需要说明：</p>
+<ol>
+<li>保本价格包含了购买当时支付的佣金。</li>
+<li>将来可能会加一个YSSL，即原始数量，如果考虑到真是复权情况的话。</li>
+<li>CCLR 应该剔除双向佣金和印花税。</li>
+</ol>
+<h3 id="未来想要改进的地方"><a href="#未来想要改进的地方" class="headerlink" title="未来想要改进的地方"></a>未来想要改进的地方</h3><h4 id="复权处理的细化"><a href="#复权处理的细化" class="headerlink" title="复权处理的细化"></a>复权处理的细化</h4><p>股息，送红利可以这样想:</p>
+<ul>
+<li>股权登记日第二天，除权日，现金增加，股票数量不变，股价降低</li>
+<li>总资产不变，市值减少</li>
+<li>持仓部分，摊博成本价（保本价格）可以相应降低。</li>
+<li>利润的计算由当前价格减去将要付出的佣金、印花税减去保本价格。</li>
+<li>现金部分，需要考虑税收问题，这就牵涉到日持仓表的进一步改造，根据先进先出原则，添加具体购买日期和持仓时间。</li>
+</ul>
+<p>送红股:</p>
+<ul>
+<li>要交税</li>
+<li>持仓数量相应改变</li>
+</ul>
+<p>增股：</p>
+<ul>
+<li>持仓数量改变</li>
+<li>不交税</li>
+</ul>
+<p>配股：</p>
+<ul>
+<li>要额外现金购买可以所得股票，这里可能需要资金明细表，如果不想加，可以在日综合状况表加一列资金进出，表示取现和存钱。</li>
+<li>不能不买</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/backtest/" rel="tag">#backtest</a>
+          
+            <a href="/tags/position/" rel="tag">#position</a>
+          
+            <a href="/tags/balance/" rel="tag">#balance</a>
+          
+            <a href="/tags/order/" rel="tag">#order</a>
+          
+            <a href="/tags/deal/" rel="tag">#deal</a>
+          
+            <a href="/tags/books/" rel="tag">#books</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/25/2016-08-25-OHLC涨跌停检查/" rel="next" title="OHLC涨跌停检查">
+                <i class="fa fa-chevron-left"></i> OHLC涨跌停检查
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="zhuzhi" />
+          <p class="site-author-name" itemprop="name">zhuzhi</p>
+          <p class="site-description motion-element" itemprop="description">三省吾身</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/zhuzhi" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#证券公司的客户交易数据表"><span class="nav-number">1.</span> <span class="nav-text">证券公司的客户交易数据表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回测生成交易数据表"><span class="nav-number">2.</span> <span class="nav-text">回测生成交易数据表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#日综合状况表-T-RZHZK-t-rzhzk"><span class="nav-number">2.1.</span> <span class="nav-text">日综合状况表 T_RZHZK / t_rzhzk</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#日委托表-T-RWT-t-rwt"><span class="nav-number">2.2.</span> <span class="nav-text">日委托表 T_RWT / t_rwt</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#日成交表-T-RCJ-t-rcj"><span class="nav-number">2.3.</span> <span class="nav-text">日成交表 T_RCJ / t_rcj</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#日持仓表-T-RCC-t-rcc"><span class="nav-number">2.4.</span> <span class="nav-text">日持仓表 T_RCC / t_rcc</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#未来想要改进的地方"><span class="nav-number">3.</span> <span class="nav-text">未来想要改进的地方</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#复权处理的细化"><span class="nav-number">3.1.</span> <span class="nav-text">复权处理的细化</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhuzhi</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+
+</body>
+</html>
