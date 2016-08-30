@@ -1,0 +1,790 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="笔记,vim," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="目前进度：移动光标
+今天晚上无论如何静不下心来看书，不如先简单学学vim吧。
+我第一次接触vim是通过袁振飞师兄和王星宇师弟的介绍，当时觉得好炫，到现在为止也只是学习了几个基础的功能，现在想要跟进一步，也算是稍微不要浪费时间。
+这篇学习笔记肯定不会一次性写完，vim太复杂了，分段下吧，每次写好提交一下。
+这篇学习笔记很多内容都是在网络上看到的，甚至包含很多摘抄内容，我先将几个来源介绍下：
+
+Vim">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vim学习笔记">
+<meta property="og:url" content="http://yoursite.com/2016/08/30/2016-08-30-vim学习笔记/index.html">
+<meta property="og:site_name" content="zhuzhi's notes">
+<meta property="og:description" content="目前进度：移动光标
+今天晚上无论如何静不下心来看书，不如先简单学学vim吧。
+我第一次接触vim是通过袁振飞师兄和王星宇师弟的介绍，当时觉得好炫，到现在为止也只是学习了几个基础的功能，现在想要跟进一步，也算是稍微不要浪费时间。
+这篇学习笔记肯定不会一次性写完，vim太复杂了，分段下吧，每次写好提交一下。
+这篇学习笔记很多内容都是在网络上看到的，甚至包含很多摘抄内容，我先将几个来源介绍下：
+
+Vim">
+<meta property="og:updated_time" content="2016-08-30T15:05:34.629Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vim学习笔记">
+<meta name="twitter:description" content="目前进度：移动光标
+今天晚上无论如何静不下心来看书，不如先简单学学vim吧。
+我第一次接触vim是通过袁振飞师兄和王星宇师弟的介绍，当时觉得好炫，到现在为止也只是学习了几个基础的功能，现在想要跟进一步，也算是稍微不要浪费时间。
+这篇学习笔记肯定不会一次性写完，vim太复杂了，分段下吧，每次写好提交一下。
+这篇学习笔记很多内容都是在网络上看到的，甚至包含很多摘抄内容，我先将几个来源介绍下：
+
+Vim">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/08/30/2016-08-30-vim学习笔记/"/>
+
+  <title> vim学习笔记 | zhuzhi's notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">zhuzhi's notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                vim学习笔记
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-30T21:08:56+08:00" content="2016-08-30">
+              2016-08-30
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/vim/" itemprop="url" rel="index">
+                    <span itemprop="name">vim</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/vim/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>目前进度：移动光标</p>
+<p>今天晚上无论如何静不下心来看书，不如先简单学学vim吧。</p>
+<p>我第一次接触vim是通过袁振飞师兄和王星宇师弟的介绍，当时觉得好炫，到现在为止也只是学习了几个基础的功能，现在想要跟进一步，也算是稍微不要浪费时间。</p>
+<p>这篇学习笔记肯定不会一次性写完，vim太复杂了，分段下吧，每次写好提交一下。</p>
+<p>这篇学习笔记很多内容都是在网络上看到的，甚至包含很多摘抄内容，我先将几个来源介绍下：</p>
+<ol>
+<li><a href="http://www.jianshu.com/p/bcbe916f97e1" target="_blank" rel="external">Vim入门基础</a>，作者<a href="http://www.jianshu.com/users/e5a7655ca554/latest_articles" target="_blank" rel="external">甲鱼</a>，网站：简书。</li>
+<li><a href="https://github.com/yangyangwithgnu/use_vim_as_ide" target="_blank" rel="external">use_vim_as_ide</a>，作者<a href="https://github.com/yangyangwithgnu" target="_blank" rel="external">yangyangwithgnu</a>，网站：github。</li>
+<li><a href="https://danielmiessler.com/study/vim/" target="_blank" rel="external">A vim Tutorial and Primer</a>, 作者未知，网站是google的国外网站。</li>
+<li><a href="https://blog.interlinked.org/tutorials/vim_tutorial.html" target="_blank" rel="external">Vim Introduction and Tutorial</a>，作者未知，国外友人的博客。</li>
+</ol>
+<h3 id="Vim简介，以及我为什么要学习vim"><a href="#Vim简介，以及我为什么要学习vim" class="headerlink" title="Vim简介，以及我为什么要学习vim"></a>Vim简介，以及我为什么要学习vim</h3><h4 id="Vim简介"><a href="#Vim简介" class="headerlink" title="Vim简介"></a>Vim简介</h4><p>根据<a href="https://zh.wikipedia.org/wiki/Vim" target="_blank" rel="external">维基百科</a>，<strong>Vim</strong> 是从vi发展出来的一个文本编辑器。Vim的第一个版本是由布莱姆·米勒在1991年发布，最初的简称是 <strong>V</strong>i <strong>IM</strong>itation，随着功能的不断增加，正式名称改成了 <strong>V</strong>i <strong>IM</strong>proved。<strong> </strong></p>
+<p>Vim的学习曲线比较陡峭，开始学习的时候比较缓慢，但是一旦掌握了基础之后，能大幅度提高编辑效率。</p>
+<p>维基百科介绍vim有6种基本模式和5种派生模式。</p>
+<p>基本模式：</p>
+<ol>
+<li>普通模式</li>
+<li>插入模式</li>
+<li>可视模式</li>
+<li>选择模式</li>
+<li>命令行模式</li>
+<li>Ex模式</li>
+</ol>
+<p>派生模式：</p>
+<ol>
+<li>操作符等待模式</li>
+<li>插入普通模式</li>
+<li>插入可视模式</li>
+<li>插入选择模式</li>
+<li>替换模式</li>
+</ol>
+<h4 id="我为什么学习vim"><a href="#我为什么学习vim" class="headerlink" title="我为什么学习vim"></a>我为什么学习vim</h4><p>当然不是为了装X!<em>但也不能说完全没有</em>。</p>
+<p>由于有两台linux云主机，很多时候需要在线修改一些程序脚本文件，编辑一些配置文件，所以需要用到vim。（不太可能在云主机上安装desktop，实在太浪费。）</p>
+<p>维基百科和简书上的那篇教程对于vim的一些模式的名称不统一，例如刚进入vim的默认模式维基百科称之为普通模式，而简书的教程称之为编辑模式。而且简书的教程介绍vim有三种操作模式：编辑模式、插入模式和命令模式。</p>
+<p>就我个人来说，其实主要模式就是三种，就如简书教程来说。当然，也会用到可视模式等功能，但是可视模式就比较像普通模式（编辑模式）的一个附属功能。我也不准备深入探讨，做个vim学霸，还是实用至上。就按照简书上的介绍来学习好了。（其实也看到过老外介绍时说到有 2种主要模式～insert mode and command mode）</p>
+<h3 id="编辑模式-普通模式-command-mode"><a href="#编辑模式-普通模式-command-mode" class="headerlink" title="编辑模式/普通模式/command mode"></a>编辑模式/普通模式/command mode</h3><p>这就是打开vim时的默认模式，在这个模式下可以通过一系列操作移动光标，剪切，黏贴，删除，插入。</p>
+<p>这个时候最显著也是和我们平常编辑器最大的不同是：你输入的键盘字母都会被当做命令执行，而不是所见即所得的文本。</p>
+<h4 id="模式切换"><a href="#模式切换" class="headerlink" title="模式切换"></a>模式切换</h4><p>command mode可以说是vim的核心模式，它帮助在各个模式之间穿梭。</p>
+<p>[Insert Mode] –&gt; [Command Mode]: Esc按键<br>[Command Mode] –&gt; [Insert Mode]: 四个按键: i,a,I,A。<br>[Command Mode] –&gt; [Visual Mode]: 三个按键: v, V,  Ctrl+v<br>[Visual Mode] –&gt; [Command Mode]: Esc按键</p>
+<blockquote>
+<p>To switch from the command mode to the insert mode type one of</p>
+<ul>
+<li>i …switch to insert mode before the current position（最常用）</li>
+<li>a …switch to insert mode after the current position (append)（和上一个差不多，一个在前，一个在后）</li>
+<li>I …jump to the first non-blank character in the current line and switch to the insert mode（行开头插入）</li>
+<li>A …jump to the last character of the current line and switch to the insert mode（行末插入）</li>
+</ul>
+<p>To switch from the command mode to the visual mode type one of</p>
+<ul>
+<li>v …switch to the visual mode (character oriented)（选择字符）</li>
+<li>V …switch to the visual mode (line oriented)（多行选择）</li>
+<li>Ctrl-v …switch to the block-visual mode (select rectangles of text)（矩阵选择，这个最好用，可以用于多行注释取消注释）</li>
+</ul>
+</blockquote>
+<h4 id="跳转-Movement"><a href="#跳转-Movement" class="headerlink" title="跳转/Movement"></a>跳转/Movement</h4><p>简单的移动模式对于刚接触vim（比如说我）来说，简直反人类：</p>
+<blockquote>
+<ul>
+<li>h …move left</li>
+<li>l …move right</li>
+<li>k …move up</li>
+<li>j …move down</li>
+</ul>
+</blockquote>
+<p>进阶移动：<br>老外有张图挺形象的，没好意思盗人家的图：）</p>
+<blockquote>
+<ul>
+<li>0 …first column of the line</li>
+<li>^ …first non-blank character of the line</li>
+<li>w …jump to next word</li>
+<li>W …jump to next word, ignore punctuation</li>
+<li>e …jump to word-end</li>
+<li>E …jump to word-end, ignore punctuation</li>
+<li>b …jump to word-beginning</li>
+<li>B …jump to word-beginning, ignore punctuation</li>
+<li>ge …jump to previous word-ending</li>
+<li>gE …jump to previous word-ending, ignore punctuation</li>
+<li>g_ …jump to last non-blank character of the line</li>
+<li>$ …jump to the last character of the line</li>
+</ul>
+</blockquote>
+<p>简书的说明也很赞：</p>
+<blockquote>
+<ul>
+<li>H 将光标移到屏幕上的起始行（或最上行）；</li>
+<li>M 将光标移到屏幕中间；</li>
+<li>L 将光标移到屏幕最后一行。</li>
+</ul>
+</blockquote>
+<p>需要注意字母的大小写。H 和 L 命令还可以加数字。如 2H 表示将光标移到屏幕的第２行，3L 表示将光标移到屏幕的倒数第3行。<br>当将光标移到所要的行是，行内移动 光标可以用下面的命令来实现：</p>
+<blockquote>
+<ul>
+<li>w 右移光标到下一个字的开头；</li>
+<li>e 右移光标到一个字的末尾；</li>
+<li>b 左移光标到前一个字的开头；</li>
+<li>0 数字０，左移光标到本行的开始；</li>
+<li>$ 右移光标，到本行的末尾；</li>
+<li>^ 移动光标，到本行的第一个非空字符。</li>
+</ul>
+</blockquote>
+<p>接下来是翻页：</p>
+<blockquote>
+<ul>
+<li>Ctrl+f 在文件中前移一页（相当于 page down）；</li>
+<li>Ctrl+b 在文件中后移一页（相当于 page up）；</li>
+<li>Ctrl-e 一行上移</li>
+<li>Ctrl-d 文件中上移1/2页</li>
+<li>Ctrl-y 一行下移</li>
+<li>Ctrl-u 文件中下移1/2页</li>
+</ul>
+</blockquote>
+<p>还有更加高级的:</p>
+<blockquote>
+<ul>
+<li>* 当光标停留在一个单词上，* 键会在文件内搜索该单词，并跳转到下一处；</li>
+<li># 当光标停留在一个单词上，# 在文件内搜索该单词，并跳转到上一处；</li>
+<li>(/) 移动到 前/后 句 的开始；</li>
+<li>{/} 跳转到 当前/下一个 段落 的开始。</li>
+<li>g_ 到本行最后一个不是 blank 字符的位置。</li>
+<li>fa 到下一个为 a 的字符处，你也可以fs到下一个为s的字符。</li>
+<li>t,         到逗号前的第一个字符。逗号可以变成其它字符。</li>
+<li>3fa 在当前行查找第三个出现的 a。</li>
+<li>F/T 和 f 和 t 一样，只不过是相反方向;</li>
+<li>gg 将光标定位到文件第一行起始位置；</li>
+<li>G 将光标定位到文件最后一行起始位置；</li>
+<li>NG或Ngg 将光标定位到第 N 行的起始位置。</li>
+</ul>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/笔记/" rel="tag">#笔记</a>
+          
+            <a href="/tags/vim/" rel="tag">#vim</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/25/2016-08-25-backtest_books/" rel="next" title="backtest books design v1.0.0">
+                <i class="fa fa-chevron-left"></i> backtest books design v1.0.0
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="zhuzhi" />
+          <p class="site-author-name" itemprop="name">zhuzhi</p>
+          <p class="site-description motion-element" itemprop="description">三省吾身</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/zhuzhi" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Vim简介，以及我为什么要学习vim"><span class="nav-number">1.</span> <span class="nav-text">Vim简介，以及我为什么要学习vim</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Vim简介"><span class="nav-number">1.1.</span> <span class="nav-text">Vim简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#我为什么学习vim"><span class="nav-number">1.2.</span> <span class="nav-text">我为什么学习vim</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编辑模式-普通模式-command-mode"><span class="nav-number">2.</span> <span class="nav-text">编辑模式/普通模式/command mode</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#模式切换"><span class="nav-number">2.1.</span> <span class="nav-text">模式切换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#跳转-Movement"><span class="nav-number">2.2.</span> <span class="nav-text">跳转/Movement</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhuzhi</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+
+</body>
+</html>
